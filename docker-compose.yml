@@ -1,0 +1,30 @@
+cloudhaskell-countword-worker-1:
+  image: cloudhaskell-countword
+  command: /usr/local/bin/cloudhaskell-countword-exe worker localhost 8080
+  ports:
+    - "8080:8080"
+  net: "host"
+cloudhaskell-countword-worker-2:
+  image: cloudhaskell-countword
+  command: /usr/local/bin/cloudhaskell-countword-exe worker localhost 8081
+  ports:
+    - "8081:8081"
+  net: "host"
+cloudhaskell-countword-worker-3:
+  image: cloudhaskell-countword
+  command: /usr/local/bin/cloudhaskell-countword-exe worker localhost 8082
+  ports:
+    - "8082:8082"
+  net: "host"
+cloudhaskell-countword-worker-4:
+  image: cloudhaskell-countword
+  command: /usr/local/bin/cloudhaskell-countword-exe worker localhost 8083
+  ports:
+    - "8083:8083"
+  net: "host"
+cloudhaskell-countword-worker-5:
+  image: cloudhaskell-countword
+  command: /usr/local/bin/cloudhaskell-countword-exe worker localhost 8084
+  ports:
+    - "8084:8084"
+  net: "host"

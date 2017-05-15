@@ -1,0 +1,68 @@
+name:                cloudhaskell-countword
+version:             0.1.0.0
+synopsis:            Initial project template from stack
+description:         Please see README.md
+homepage:            https://github.com/ca7erina/cloudhaskell-countword#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Xiaoxue CHEN
+maintainer:          chenx6@tcd.ie
+copyright:           2016
+category:            test
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+flag use-simplelocalnet
+  description: Use the SimpleLocalnet backend
+  default: True
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib,
+                       CountWords
+                       MapReduce
+                       MonoDistrMapReduce
+                       PolyDistrMapReduce
+  build-depends:       base >= 4.7 && < 5,
+                       distributed-process >= 0.3.2,
+                       distributed-static >= 0.2.0,
+                       containers >= 0.4 && < 0.6,
+                       bytestring >= 0.9 && < 0.11,
+                       binary >= 0.5 && < 0.9,
+                       array >= 0.4 && < 0.6,
+                       random >= 1.0 && < 1.2,
+                       directory
+  extensions:          BangPatterns
+                       CPP
+                       KindSignatures
+                       ScopedTypeVariables
+                       TemplateHaskell
+  ghc-options:         -Wall -rtsopts -with-rtsopts=-K64M
+  default-language:    Haskell2010
+  if flag(use-simplelocalnet)
+    build-depends: distributed-process-simplelocalnet
+    cpp-options:   -DUSE_SIMPLELOCALNET
+  else
+    buildable: False
+    
+executable cloudhaskell-countword-exe
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base >=4.5 && <5
+                     , cloudhaskell-countword
+  default-language:    Haskell2010
+
+test-suite cloudhaskell-countword-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , cloudhaskell-countword
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/ca7erina/cloudhaskell-countword
